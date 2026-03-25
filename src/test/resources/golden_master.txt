@@ -1,0 +1,10 @@
+Chaise | sellIn=9 | quality=19
+Comté | sellIn=9 | quality=21
+Pass VIP Concert | sellIn=14 | quality=21
+Pass VIP Concert | sellIn=9 | quality=22
+Pass VIP Concert | sellIn=4 | quality=23
+Pass VIP Concert | sellIn=-1 | quality=0
+Kryptonite | sellIn=10 | quality=80
+Comté | sellIn=9 | quality=50
+Chaise | sellIn=-1 | quality=18
+Chaise | sellIn=9 | quality=0
