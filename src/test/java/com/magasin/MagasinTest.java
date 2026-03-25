@@ -6,12 +6,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class MagasinTest {
 
     private static final String GOLDEN_FILE = "src/test/resources/golden_master.txt";
 
-    @Test
+    // Appelle cette méthode UNE SEULE FOIS pour créer le fichier de référence
     void generateGoldenMaster() throws IOException {
         Item[] items = buildItems();
         Magasin app = new Magasin(items);
@@ -28,6 +30,29 @@ class MagasinTest {
         Files.createDirectories(Paths.get("src/test/resources"));
         Files.writeString(Paths.get(GOLDEN_FILE), sb.toString());
         System.out.println("Golden master généré !");
+    }
+
+    // Le vrai test : compare la sortie actuelle au fichier de référence
+    @Test
+    void goldenMasterTest() throws IOException {
+        Item[] items = buildItems();
+        Magasin app = new Magasin(items);
+        app.updateQuality();
+
+        // Construire la sortie actuelle
+        StringBuilder actual = new StringBuilder();
+        for (Item item : app.items) {
+            actual.append(item.name)
+                    .append(" | sellIn=").append(item.sellIn)
+                    .append(" | quality=").append(item.quality)
+                    .append("\n");
+        }
+
+        // Lire le golden master
+        String expected = Files.readString(Paths.get(GOLDEN_FILE));
+
+        assertEquals(expected, actual.toString(),
+                "Le comportement a changé par rapport au golden master !");
     }
 
 
@@ -63,6 +88,23 @@ class MagasinTest {
 //        assertEquals(0,app.items[5].quality);
 //    //ITEM KRYPTONITE
 //        assertEquals(80,app.items[6].quality);
+
+
+    }
+
+    @Test
+    void testPouvoirsMagiques() {
+        Item[] items = new Item[] {
+                new Item( "Pouvoirs magiques", 0,20),
+                new Item( "Pouvoirs magiques", 10,20),
+        };
+
+        Magasin app = new Magasin(items);
+        app.updateQuality();
+
+        //ITEM NORMAL
+        assertEquals(16,app.items[0].quality);
+        assertEquals(18,app.items[1].quality);
     }
 
 }
