@@ -30,12 +30,14 @@ class Magasin {
                 updateStandardItem(item);
                 break;
         }
+        if (!item.name.equals("Kryptonite")) {
+            item.sellIn--;
+        }
     }
 
     private void updateComte(Item item) {
         if (item.quality < 50) item.quality++;
-        item.sellIn--;
-        if (item.sellIn < 0 && item.quality < 50) item.quality++;
+        if (item.sellIn <= 0 && item.quality < 50) item.quality++;  // <= 0 car sellIn pas encore décrémenté
     }
 
     private void updatePass(Item item) {
@@ -44,23 +46,18 @@ class Magasin {
         } else {
             item.quality++;
             if (item.sellIn <= 10 && item.quality < 50) item.quality++;
-            if (item.sellIn <= 5  && item.quality < 50) item.quality++;
+            if (item.sellIn <= 5 && item.quality < 50) item.quality++;
             item.quality = Math.min(item.quality, 50);
         }
-        item.sellIn--;
     }
 
     private void updatePouvoirsMagiques(Item item) {
         if (item.quality > 0) item.quality -= 2;
-        item.sellIn--;
-        if (item.sellIn < 0) {
-            if (item.quality > 0) item.quality -= 2;
-        }
+        if (item.sellIn <= 0 && item.quality > 0) item.quality -= 2;  // idem
     }
 
     private void updateStandardItem(Item item) {
         if (item.quality > 0) item.quality--;
-        item.sellIn--;
-        if (item.sellIn < 0 && item.quality > 0) item.quality--;
+        if (item.sellIn <= 0 && item.quality > 0) item.quality--;    // idem
     }
 }
