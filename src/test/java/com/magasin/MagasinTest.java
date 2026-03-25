@@ -100,6 +100,7 @@ class MagasinTest {
         Item[] items = new Item[] {
                 new Item( "Pouvoirs magiques", 0,20),
                 new Item( "Pouvoirs magiques", 10,20),
+                new Item( "Pouvoirs magiques", 10,20),
         };
 
         Magasin app = new Magasin(items);
@@ -107,6 +108,7 @@ class MagasinTest {
 
         assertEquals(16,app.items[0].quality);
         assertEquals(18,app.items[1].quality);
+        assertEquals(20,app.items[2].quality);
     }
 
 }
