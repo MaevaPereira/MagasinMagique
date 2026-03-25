@@ -9,59 +9,60 @@ class Magasin {
 
     public void updateQuality() {
         for (Item item : items) {
-            if (!item.name.equals("Comté") && !item.name.equals("Pass VIP Concert")) {
-                if (item.quality > 0) {
-                    if (!item.name.equals("Kryptonite")) {
-                        item.quality = item.quality - 1;
-                    }
-                    if  (item.name.equals("Pouvoirs magiques")) {
-                        item.quality = item.quality - 1;
-                    }
-                }
-            } else {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-
-                    if (item.name.equals("Pass VIP Concert")) {
-                        if (item.sellIn < 11) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1;
-                            }
-                        }
-
-                        if (item.sellIn < 6) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!item.name.equals("Kryptonite")) {
-                item.sellIn = item.sellIn - 1;
-            }
-
-            if (item.sellIn < 0) {
-                if (!item.name.equals("Comté")) {
-                    if (!item.name.equals("Pass VIP Concert")) {
-                        if (item.quality > 0) {
-                            if (!item.name.equals("Kryptonite")) {
-                                item.quality = item.quality - 1;
-                            }
-                            if (item.name.equals("Pouvoirs magiques")) {
-                                item.quality = item.quality - 1;
-                            }
-                        }
-                    } else {
-                        item.quality = 0;
-                    }
-                } else {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1;
-                    }
-                }
-            }
+            updateItem(item);
         }
+    }
+
+    private void updateItem(Item item) {
+        switch (item.name) {
+            case "Kryptonite":
+                break;
+            case "Comté":
+                updateComte(item);
+                break;
+            case "Pass VIP Concert":
+                updatePass(item);
+                break;
+            case "Pouvoirs magiques":
+                updatePouvoirsMagiques(item);
+                break;
+            default:
+                updateStandardItem(item);
+                break;
+        }
+    }
+
+    private void updateComte(Item item) {
+        if (item.quality < 50) item.quality++;
+        item.sellIn--;
+        if (item.sellIn < 0 && item.quality < 50) item.quality++;
+    }
+
+    private void updatePass(Item item) {
+        if (item.sellIn <= 0) {
+            item.quality = 0;
+        } else {
+            item.quality++;
+            if (item.sellIn <= 10 && item.quality < 50) item.quality++;
+            if (item.sellIn <= 5  && item.quality < 50) item.quality++;
+            item.quality = Math.min(item.quality, 50);
+        }
+        item.sellIn--;
+    }
+
+    private void updatePouvoirsMagiques(Item item) {
+        if (item.quality > 0) item.quality--;
+        if (item.quality > 0) item.quality--;
+        item.sellIn--;
+        if (item.sellIn < 0) {
+            if (item.quality > 0) item.quality--;
+            if (item.quality > 0) item.quality--;
+        }
+    }
+
+    private void updateStandardItem(Item item) {
+        if (item.quality > 0) item.quality--;
+        item.sellIn--;
+        if (item.sellIn < 0 && item.quality > 0) item.quality--;
     }
 }
