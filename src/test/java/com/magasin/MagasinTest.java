@@ -1,5 +1,6 @@
 package com.magasin;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -56,8 +57,6 @@ class MagasinTest {
     }
 
 
-
-
     private Item[] buildItems() {
         return new Item[] {
                 new Item("Chaise", 10, 20),
@@ -72,24 +71,28 @@ class MagasinTest {
                 new Item("Chaise", 10, 0),
         };
 
+    }
 
+    @Test
+    void updateQualityTest() {
+        Item[] items = buildItems();
+        Magasin app = new Magasin(items);
+        app.updateQuality();
 
-//    //ITEM NORMAL
-//        assertEquals(19,app.items[0].quality);
-//        assertEquals(18,app.items[8].quality);
-//        assertEquals(0,app.items[9].quality);
-//    //ITEM COMTÉ
-//        assertEquals(21,app.items[1].quality);
-//        assertEquals(50,app.items[7].quality);
-//    //ITEM PASS VIP
-//        assertEquals(21,app.items[2].quality);
-//        assertEquals(22,app.items[3].quality);
-//        assertEquals(23,app.items[4].quality);
-//        assertEquals(0,app.items[5].quality);
-//    //ITEM KRYPTONITE
-//        assertEquals(80,app.items[6].quality);
-
-
+    // ITEM NORMAL
+        assertEquals(19,app.items[0].quality);
+        assertEquals(18,app.items[8].quality);
+        assertEquals(0,app.items[9].quality);
+    //ITEM COMTÉ
+        assertEquals(21,app.items[1].quality);
+        assertEquals(50,app.items[7].quality);
+    //ITEM PASS VIP
+        assertEquals(21,app.items[2].quality);
+        assertEquals(22,app.items[3].quality);
+        assertEquals(23,app.items[4].quality);
+        assertEquals(0,app.items[5].quality);
+    //ITEM KRYPTONITE
+        assertEquals(80,app.items[6].quality);
     }
 
     @Test
@@ -102,7 +105,6 @@ class MagasinTest {
         Magasin app = new Magasin(items);
         app.updateQuality();
 
-        //ITEM NORMAL
         assertEquals(16,app.items[0].quality);
         assertEquals(18,app.items[1].quality);
     }
