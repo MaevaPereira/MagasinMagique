@@ -37,7 +37,7 @@ class Magasin {
 
     private void updateComte(Item item) {
         if (item.quality < 50) item.quality++;
-        if (item.sellIn <= 0 && item.quality < 50) item.quality++;  // <= 0 car sellIn pas encore décrémenté
+        if (item.sellIn <= 0 && item.quality < 50) item.quality++;
     }
 
     private void updatePass(Item item) {
@@ -53,11 +53,11 @@ class Magasin {
 
     private void updatePouvoirsMagiques(Item item) {
         if (item.quality > 0) item.quality -= 2;
-        if (item.sellIn <= 0 && item.quality > 0) item.quality -= 2;  // idem
+        if (item.sellIn <= 0 && item.quality > 0) item.quality -= 2;
     }
 
     private void updateStandardItem(Item item) {
         if (item.quality > 0) item.quality--;
-        if (item.sellIn <= 0 && item.quality > 0) item.quality--;    // idem
+        if (item.sellIn <= 0 && item.quality > 0) item.quality--;
     }
 }

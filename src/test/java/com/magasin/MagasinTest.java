@@ -13,7 +13,7 @@ class MagasinTest {
 
     private static final String GOLDEN_FILE = "src/test/resources/golden_master.txt";
 
-    // Appelle cette méthode UNE SEULE FOIS pour créer le fichier de référence
+    // Méthode appelée UNE SEULE FOIS pour créer le fichier de référence
     void generateGoldenMaster() throws IOException {
         Item[] items = buildItems();
         Magasin app = new Magasin(items);
